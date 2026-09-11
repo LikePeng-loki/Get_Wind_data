@@ -32,10 +32,11 @@
 | 4. 配 API Key | `mkdir -p ~/.wind-aifinmarket && nano ~/.wind-aifinmarket/config`，写入 `WIND_API_KEY=你的Key`，`Ctrl+O` 回车保存，`Ctrl+X` 退出 |
 | 5. 测试能不能取到数据 | `cd ~/.agents/skills/wind-mcp-skill && node scripts/cli.mjs call stock_data get_stock_price_indicators '{"windcode":"1816.HK"}'` | `1816.HK` 可换成其他 |
 | 6. 装 Python 库 | `python -m pip install pandas openpyxl` | `python -c "import pandas, openpyxl; print('ok')"` 显示 `ok` |
-| 7. 进入工作文件夹 | `cd ~/wind-data` | 以后每次打开终端先运行这句 |
-| 8. 取某只股票的日 K 线 | `python wind2excel.py stock_data get_stock_kline '{"windcode":"1816.HK","begin_date":"2026-01-01","end_date":"2026-09-11"}' -o 中广核电力日K.xlsx` | 可改名 |
-| 9. 取红利股模板要用的数据 | `python fetch_dividend_data.py --code 1816.HK --name 中广核电力 --latest 2026-06-30 --a-code 003816.SZ` | `--a-code 对应的 A 股代码，没有 A 股就把这一项整个删掉` |
-| 10. 打开结果 | `open 1816HK/1816HK_原始数据.xlsx` | 
+| 7. 放脚本 | `mkdir -p ~/wind-data` | 然后把 `wind2excel.py` 和 `fetch_dividend_data.py` 两个文件放进这个文件夹 |
+| 8. 进入工作文件夹 | `cd ~/wind-data` | 以后每次打开终端先运行这句 |
+| 9. 取某只股票的日 K 线 | `python wind2excel.py stock_data get_stock_kline '{"windcode":"1816.HK","begin_date":"2026-01-01","end_date":"2026-09-11"}' -o 中广核电力日K.xlsx` | 可改名 |
+| 10. 取红利股模板要用的数据 | `python fetch_dividend_data.py --code 1816.HK --name 中广核电力 --latest 2026-06-30 --a-code 003816.SZ` | `--a-code 对应的 A 股代码，没有 A 股就把这一项整个删掉` |
+| 11. 打开结果 | `open 1816HK/1816HK_原始数据.xlsx` | 
 
 
 ---
