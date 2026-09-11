@@ -22,22 +22,25 @@
 
 ---
 
-## 二、一次性准备（已完成；换电脑时再做一遍）
+## 二、第一次取数（已完成；换电脑时再做一遍）
 
 | 步骤 | 命令 | 检查是否完成 |
 | --- | --- | --- |
-| 1. 装 Node.js | 从 https://nodejs.org 下载 LTS 版 .pkg 安装，装完重开终端 | `node -v` 显示版本号 |
+| 1. 装 Node.js | 从 https://nodejs.org 下载 LTS 版 .pkg 安装，装完重开终端输入 `node -v && npx -v && git --version` | `node -v` 显示版本号 |
 | 2. 装 Wind 技能 | `npx --yes --registry=https://registry.npmjs.org skills add https://github.com/Wind-Alice/AliceMarket.git --skill wind-find-finance-skill --skill wind-mcp-skill -g -y` | `ls ~/.agents/skills` 能看到两个文件夹 |
-| 3. 给 Claude Code 链接 | `mkdir -p ~/.claude/skills && ln -s ~/.agents/skills/wind-mcp-skill ~/.agents/skills/wind-find-finance-skill ~/.claude/skills/` | `ls ~/.claude/skills` |
-| 4. 配 API Key | `mkdir -p ~/.wind-aifinmarket && nano ~/.wind-aifinmarket/config`，写入 `WIND_API_KEY=你的Key`，`Ctrl+O` 回车保存，`Ctrl+X` 退出；再 `chmod 600 ~/.wind-aifinmarket/config` | `grep -c '^WIND_API_KEY=' ~/.wind-aifinmarket/config` 显示 `1` |
-| 5. 装 Python 库 | `python -m pip install pandas openpyxl -i https://pypi.tuna.tsinghua.edu.cn/simple` | `python -c "import pandas, openpyxl; print('ok')"` 显示 `ok` |
-| 6. 放脚本 | 把 `fetch_dividend_data.py`、`wind2excel.py` 放进 `~/wind-data/` | `ls ~/wind-data` |
+| 3. 让 Claude Code 能找到这两个技能 | `mkdir -p ~/.claude/skills && ln -s ~/.agents/skills/wind-mcp-skill ~/.agents/skills/wind-find-finance-skill ~/.claude/skills/` | `ls ~/.claude/skills` |
+| 4. 配 API Key | `mkdir -p ~/.wind-aifinmarket && nano ~/.wind-aifinmarket/config`，写入 `WIND_API_KEY=你的Key`，`Ctrl+O` 回车保存，`Ctrl+X` 退出 |
+| 5. 测试能不能取到数据 | `cd ~/.agents/skills/wind-mcp-skill && node scripts/cli.mjs call stock_data get_stock_price_indicators '{"windcode":"1816.HK"}'` | `1816.HK` 可换成其他 |
+| 6. 装 Python 库 | `python -m pip install pandas openpyxl` | `python -c "import pandas, openpyxl; print('ok')"` 显示 `ok` |
+| 7. 进入工作文件夹 | `cd ~/wind-data` | 以后每次打开终端先运行这句 |
+| 8. 取某只股票的日 K 线 | `python wind2excel.py stock_data get_stock_kline '{"windcode":"1816.HK","begin_date":"2026-01-01","end_date":"2026-09-11"}' -o 中广核电力日K.xlsx` | 可改名 |
+| 9. 取红利股模板要用的数据 | `python fetch_dividend_data.py --code 1816.HK --name 中广核电力 --latest 2026-06-30 --a-code 003816.SZ` | `--a-code 对应的 A 股代码，没有 A 股就把这一项整个删掉` |
+| 10. 打开结果 | `open 1816HK/1816HK_原始数据.xlsx` | 
 
-安装前 GitHub 连不上时，第 2 步可换国内源：把地址换成 `https://gitee.com/WindAlice/AliceMarket.git`，`--registry` 换成 `https://registry.npmmirror.com`。
 
 ---
 
-## 三、每次取数：从打开终端开始
+## 三、后面每次取数：从打开终端开始
 
 ### 第 1 步：打开终端
 
